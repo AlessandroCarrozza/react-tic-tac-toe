@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({
+  initialName,
+  symbol,
+  isActive,
+  onChangeName,
+}) {
   // Stati per gestire se il nome del giocatore è in fase di modifica e il nome stesso
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(initialName);
@@ -13,6 +18,9 @@ export default function Player({ initialName, symbol, isActive }) {
   // Funzione chiamata quando viene cliccato il pulsante "Edit"
   function handleEditClick() {
     setIsEditing((editing) => !editing);
+    if (isEditing) {
+      onChangeName(symbol, playerName);
+    }
   }
 
   // Il nome del giocatore, visualizzato o come input per la modifica

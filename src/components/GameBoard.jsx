@@ -1,12 +1,4 @@
-const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
-
-console.log(initialGameBoard);
-
-export default function GameBoard({ onSelectSquare, turns }) {
+export default function GameBoard({ onSelectSquare, board }) {
   //   const [gameBoard, setGameboard] = useState(initialGameBoard);
 
   //   function handleSelectSquare(rowIndex, colIndex) {
@@ -23,27 +15,16 @@ export default function GameBoard({ onSelectSquare, turns }) {
   //     onSelectSquare();
   //   }
 
-  // Inizializza la scacchiera di gioco
-  let gameBoard = initialGameBoard;
-
-  // Aggiorna la scacchiera di gioco in base alle mosse dei giocatori
-  for (const turn of turns) {
-    const { square, player } = turn;
-    const { row, col } = square;
-    gameBoard[row][col] = player;
-  }
   return (
     <ol id="game-board">
-      {gameBoard.map((row, rowIndex) => (
+      {board.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
                 <button
-                  onClick={
-                    // () => handleSelectSquare(rowIndex, colIndex)
-                    () => onSelectSquare(rowIndex, colIndex)
-                  }
+                  disabled={playerSymbol !== null}
+                  onClick={() => onSelectSquare(rowIndex, colIndex)}
                 >
                   {playerSymbol}
                 </button>
